@@ -16,3 +16,21 @@ CREATE TABLE blogs (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
+
+CREATE TABLE blog_likes(
+    id SERIAL PRIMARY KEY,
+    blog_id INT REFERENCES blogs (id) ON DELETE CASCADE,
+    user_id INT REFERENCES users (id) ON DELETE CASCADE,
+    createdAt TIMESTAMP DEFAULT NOW()
+    UNIQUE (blog_id, user_id)
+)
+
+
+
+CREATE TABLE blog_comments (
+  id SERIAL PRIMARY KEY,
+  blog_id INT REFERENCES blogs(id) ON DELETE CASCADE,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  comment TEXT NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW()
+);
